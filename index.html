@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern C++ Hub - Hướng dẫn C++ Hiện đại & Luyện tập Cú pháp</title>
+  
+  <!-- Google Fonts & Prism Code Highlighter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Application Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <a href="#" class="logo-section" onclick="switchTab('lessons'); return false;">
+        <span class="logo-badge">C++</span>
+        <div class="logo-text">
+          <h1>Modern C++ Hub <span class="version-tag">Chuẩn C++20 / 23</span></h1>
+          <div class="logo-subtitle">Cẩm nang kiến thức & Luyện tập cú pháp hiện đại</div>
+        </div>
+      </a>
+
+      <!-- Main Navigation Tabs -->
+      <nav class="main-nav">
+        <button class="nav-tab-btn active" data-tab="lessons">📖 Bài học lý thuyết</button>
+        <button class="nav-tab-btn" data-tab="practice">✍️ Luyện điền cú pháp</button>
+        <button class="nav-tab-btn" data-tab="quiz">🎯 Trắc nghiệm</button>
+        <button class="nav-tab-btn" data-tab="playground">💻 Chạy thử mã (Playground)</button>
+        <button class="nav-tab-btn" data-tab="cheatsheet">⚡ Bảng tra cứu (Cheat Sheet)</button>
+      </nav>
+
+      <!-- Action & Tools -->
+      <div class="header-actions">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" class="search-input" placeholder="Tìm kiếm bài học, cú pháp...">
+        </div>
+        <button id="themeToggleBtn" class="btn-icon" title="Đổi giao diện Sáng / Tối">☀️</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Application Body Layout -->
+  <div class="app-body">
+    <!-- Sidebar Navigation -->
+    <aside class="app-sidebar">
+      <!-- Progress Bar Card -->
+      <div class="sidebar-card">
+        <div class="progress-header">
+          <span>Tiến độ học tập</span>
+          <span id="progressPercentText" style="color: var(--accent-primary);">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div id="progressBarFill" class="progress-bar-fill"></div>
+        </div>
+        <div class="progress-subtext" id="progressCountText">0/0 bài học hoàn thành</div>
+      </div>
+
+      <!-- Categories & Lessons List -->
+      <div class="sidebar-card" style="flex: 1; overflow-y: auto;">
+        <div id="sidebarCategories">
+          <!-- Đổ dữ liệu động từ app.js -->
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="app-content">
+      <!-- Tab 1: Bài học Lý thuyết -->
+      <section id="pane-lessons" class="content-pane active">
+        <div id="lessonViewContainer">
+          <!-- Đổ nội dung bài học động từ app.js -->
+        </div>
+      </section>
+
+      <!-- Tab 2: Luyện tập cú pháp (Điền khuyết) -->
+      <section id="pane-practice" class="content-pane">
+        <div class="practice-header">
+          <h2>✍️ Luyện tập Điền Cú pháp C++ Tương tác</h2>
+          <p style="color: var(--text-secondary);">
+            Điền trực tiếp các từ khóa, toán tử hoặc cú pháp còn thiếu vào các ô gạch đứt để củng cố kỹ năng ghi nhớ mã nguồn C++ hiện đại.
+          </p>
+        </div>
+        <div id="practiceListContainer">
+          <!-- Đổ danh sách bài tập điền cú pháp động từ data.js -->
+        </div>
+      </section>
+
+      <!-- Tab 3: Trắc nghiệm tư duy cú pháp -->
+      <section id="pane-quiz" class="content-pane">
+        <div class="practice-header">
+          <h2>🎯 Trắc nghiệm Hiểu sâu Chuẩn C++ Hiện đại</h2>
+          <p style="color: var(--text-secondary);">
+            Kiểm tra hiểu biết của bạn về sự khác biệt giữa C++ truyền thống và các chuẩn mới (C++11, 14, 17, 20, 23).
+          </p>
+        </div>
+        <div id="quizListContainer">
+          <!-- Đổ câu hỏi trắc nghiệm động từ data.js -->
+        </div>
+      </section>
+
+      <!-- Tab 4: Trình mô phỏng & Thử nghiệm Code -->
+      <section id="pane-playground" class="content-pane">
+        <div class="practice-header">
+          <h2>💻 Trình mô phỏng Thực thi C++ (Playground)</h2>
+          <p style="color: var(--text-secondary);">
+            Chọn mẫu mã nguồn C++ hiện đại hoặc tự chỉnh sửa mã nguồn, sau đó bấm <strong>Chạy mã</strong> để kiểm tra kết quả hiển thị trên Terminal mô phỏng.
+          </p>
+        </div>
+
+        <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+          <label style="font-weight: 600; font-size: 0.9rem;">Chọn đoạn mã mẫu:</label>
+          <select id="playgroundPreset" style="background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color); padding: 0.4rem 0.8rem; border-radius: var(--radius-sm); outline: none; font-size: 0.9rem;">
+            <option value="hello">1. Khởi đầu với Modern C++</option>
+            <option value="ranges">2. Đường ống xử lý C++20 Ranges</option>
+            <option value="smartptr">3. Quản lý RAM với std::unique_ptr</option>
+          </select>
+          <button class="btn-primary" onclick="runPlaygroundSimulator()">▶ Chạy mã (Run)</button>
+        </div>
+
+        <div class="playground-container">
+          <div class="editor-panel">
+            <div class="panel-header">
+              <span class="panel-title">📝 Trình soạn thảo C++</span>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">main.cpp (C++23)</span>
+            </div>
+            <textarea id="playgroundCode" class="code-textarea" spellcheck="false"></textarea>
+          </div>
+
+          <div class="terminal-panel">
+            <div class="panel-header">
+              <span class="panel-title">🖥️ Console Output (Terminal)</span>
+              <span style="font-size: 0.75rem; color: #4ade80;">Online Simulator Ready</span>
+            </div>
+            <div id="playgroundTerminal" class="terminal-screen"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab 5: Bảng tra cứu Cheat Sheet -->
+      <section id="pane-cheatsheet" class="content-pane">
+        <div class="practice-header">
+          <h2>⚡ Bảng tra cứu C++ Cổ điển (C++98) vs C++ Hiện đại</h2>
+          <p style="color: var(--text-secondary);">
+            Bảng đối chiếu trực quan giúp bạn nhận biết ngay những đoạn mã đã lỗi thời để thay thế bằng cú pháp hiện đại chuẩn quốc tế.
+          </p>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table class="cheatsheet-table">
+            <thead>
+              <tr>
+                <th style="width: 20%;">Chủ đề</th>
+                <th style="width: 30%;">Phong cách Cũ (C++98)</th>
+                <th style="width: 30%;">Chuẩn Hiện đại (C++11..23)</th>
+                <th style="width: 20%;">Giải thích & Lợi ích</th>
+              </tr>
+            </thead>
+            <tbody id="cheatsheetBody">
+              <!-- Đổ dữ liệu cheat sheet từ data.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Application Footer -->
+  <footer class="app-footer">
+    <p>Modern C++ Learning Hub &bull; Thiết kế bám sát các chuẩn ISO C++11, C++14, C++17, C++20 và C++23 mới nhất.</p>
+    <p style="margin-top: 0.3rem; font-size: 0.8rem;">Dành cho người mới bắt đầu và lập trình viên muốn cập nhật kiến thức C++ hiện đại.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
